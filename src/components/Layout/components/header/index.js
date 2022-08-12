@@ -12,6 +12,7 @@ import {
     faSignOut,
     faUser,
 } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 import images from '~/assets/images';
 import styles from './Header.module.scss';
@@ -20,6 +21,7 @@ import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
 import Image from '~/components/Image';
 import Button from '~/components/Button';
 import Search from '../Search';
+import routesConfig from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
@@ -41,6 +43,62 @@ const MENU_ITEMS = [
                 {
                     code: 'fr',
                     title: 'Français',
+                },
+                {
+                    code: 'kr',
+                    title: '한국어 (대한민국)',
+                },
+                {
+                    code: 'ro',
+                    title: 'Română (Romania)',
+                },
+                {
+                    code: 'th',
+                    title: 'ไทย (ไทย)',
+                },
+                {
+                    code: 'tk',
+                    title: 'Türkçe (Türkiye)',
+                },
+                {
+                    code: 'ua',
+                    title: 'Українська (Україна)',
+                },
+                {
+                    code: 'cn',
+                    title: '简体中文',
+                },
+                {
+                    code: 'cs',
+                    title: '繁體中文',
+                },
+                {
+                    code: 'ar',
+                    title: 'العربية',
+                },
+                {
+                    code: 'pi',
+                    title: 'Cebuano (Pilipinas)',
+                },
+                {
+                    code: 'fi',
+                    title: 'Filipino (Pilipinas)',
+                },
+                {
+                    code: 'es',
+                    title: 'Español',
+                },
+                {
+                    code: 'gr',
+                    title: 'Ελληνικά (Ελλάδα)',
+                },
+                {
+                    code: 'it',
+                    title: 'Italiano (Italia)',
+                },
+                {
+                    code: 'jp',
+                    title: '日本語（日本）',
                 },
             ],
         },
@@ -96,9 +154,9 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <div className={cx('logo')}>
-                    <img src={images.logo} alt="" />
-                </div>
+                <Link to={routesConfig.home} className={cx('logo')}>
+                    <img src={images.logo} alt="Tiktok" />
+                </Link>
 
                 <Search />
 
