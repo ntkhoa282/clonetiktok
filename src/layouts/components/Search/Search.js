@@ -7,8 +7,8 @@ import styles from './Search.module.scss';
 
 import * as searchService from '~/services/searchService';
 import { Wrapper as PopperWrapper } from '~/components/popper';
-import AccountItem from '~/components/AccountItem';
-import { SearchIcon } from '~/components/Icons';
+import AccountItem from '~/components/AccountItem/AccountItem';
+import { SearchIcon } from '~/components/Icons/Icons';
 import { useDebounce } from '~/hooks';
 
 const cx = classNames.bind(styles);
@@ -21,10 +21,10 @@ function Search() {
 
     const inputRef = useRef();
 
-    const debounce = useDebounce(searchValue, 500);
+    const debounceValue = useDebounce(searchValue, 500);
 
     useEffect(() => {
-        if (!debounce.trim()) {
+        if (!debounceValue.trim()) {
             setSearchResult([]);
             return;
         }
@@ -32,14 +32,14 @@ function Search() {
         const fetchApi = async () => {
             setLoading(true);
 
-            const result = await searchService.search(debounce);
+            const result = await searchService.search(debounceValue);
 
             setSearchResult(result);
             setLoading(false);
         };
 
         fetchApi();
-    }, [debounce]);
+    }, [debounceValue]);
 
     const handleClear = () => {
         setSearchValue('');
@@ -58,22 +58,24 @@ function Search() {
         }
     };
 
+    const renderResult = (attrs) => (
+        <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+            <PopperWrapper>
+                <h4 className={cx('search-title')}>Accounts</h4>
+                {searchResult.map((result) => (
+                    <AccountItem key={result.id} data={result} />
+                ))}
+            </PopperWrapper>
+        </div>
+    );
+
     return (
         //using <div> fix warning tippy
         <div>
             <HeadlessTippy
                 visible={showResult && searchResult.length > 0}
                 interactive
-                render={(attrs) => (
-                    <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                        <PopperWrapper>
-                            <h4 className={cx('search-title')}>Accounts</h4>
-                            {searchResult.map((result) => (
-                                <AccountItem key={result.id} data={result} />
-                            ))}
-                        </PopperWrapper>
-                    </div>
-                )}
+                render={renderResult}
                 onClickOutside={handleHideResult}
             >
                 <div className={cx('search')}>

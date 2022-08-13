@@ -16,11 +16,11 @@ import { Link } from 'react-router-dom';
 
 import images from '~/assets/images';
 import styles from './Header.module.scss';
-import Menu from '~/components/popper/Menu';
-import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
-import Image from '~/components/Image';
-import Button from '~/components/Button';
-import Search from '../Search';
+import Menu from '~/components/popper/Menu/Menu';
+import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons/Icons';
+import Image from '~/components/Image/Image';
+import Button from '~/components/Button/Button';
+import Search from '../Search/Search';
 import config from '~/config';
 
 const cx = classNames.bind(styles);
